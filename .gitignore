@@ -1,0 +1,5 @@
+pwn_env/
+Linux/Step1/vuln
+Bof/Linux/Step1/vuln
+*.o
+*.out
