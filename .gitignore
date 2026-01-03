@@ -1,5 +1,7 @@
 pwn_env/
 Linux/Step1/vuln
+Linux/Step2/vuln
 Bof/Linux/Step1/vuln
+Bof/Linux/Step2/vuln
 *.o
 *.out
