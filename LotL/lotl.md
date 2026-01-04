@@ -49,7 +49,7 @@ Get-CimInstance Win32_Process -Filter "name = 'test_tool.exe' AND ExecutionState
 ### 不審な挙動
 他のプロセスを経由してコマンドを実行させる、またはイベントサブスクリプションを利用して永続化に使用する。
 ```powershell
-Get-CimInstance Win32_Process -Filter "name = 'MsMpEng.exe'" | Invoke-CimMethod -MethodName
+Get-CimInstance Win32_Process -Filter "name = 'MsMpEng.exe'" | Invoke-CimMethod -MethodName "Terminate"
 ```
 
 ## Step4 regsvr32
