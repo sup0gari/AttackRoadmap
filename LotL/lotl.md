@@ -22,9 +22,11 @@ powershell.exe -EncodedCommand <Base64>
 
 ## Step2 findstr
 ### 正規の挙動
-設定確認やトラブルシューティングなど、特定のフォルダに対しての文字列検索。  
-`findstr /i "error" C:\Logs\app.log`  
-`findstr "192.168.1.1" C:\Windows\System32\drivers\etc\hosts`
+設定確認やトラブルシューティングなど、特定のフォルダに対しての文字列検索。
+```powershell
+findstr /i "error" C:\Logs\app.log
+findstr "192.168.1.1" C:\Windows\System32\drivers\etc\hosts
+```
 ### 不審な挙動
 `/s`の多用による網羅的で、キーワードが機密関連などの検索。
 ```powershell
@@ -32,3 +34,14 @@ findstr /s /i "password" C:\Users\*.xml
 findstr /s /i "access_key" C:\*.txt
 findstr /s "PWD" D:\Data\*.conf
 ```
+
+## Step3 WMI
+### 正規の挙動
+主にシステム管理者が強制終了やメンテナンス時の停止のために使う。
+```powershell
+Get-CimInstance Win32_Process -Filter "name = 'msedge.exe'" | Invoke-CimMethod -MethodName Terminate
+Get-CimInstance Win32_Process -Filter "name = 'test_tool.exe' AND ExecutionState = 'Running'" | Invoke-CimMethod -MethodName Terminate
+```
+### 不審な挙動
+他のプロセスを経由してコマンドを実行させる。  
+`Get-CimInstance Win32_Process -Filter "name = 'MsMpEng.exe'" | Invoke-CimMethod -MethodName`
