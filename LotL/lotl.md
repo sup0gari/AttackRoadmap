@@ -43,7 +43,7 @@ Get-CimInstance Win32_Process -Filter "name = 'msedge.exe'" | Invoke-CimMethod -
 Get-CimInstance Win32_Process -Filter "name = 'test_tool.exe' AND ExecutionState = 'Running'" | Invoke-CimMethod -MethodName Terminate
 ```
 ### 不審な挙動
-他のプロセスを経由してコマンドを実行させる。  
+他のプロセスを経由してコマンドを実行させる、またはイベントサブスクリプションを利用して永続化に使用する。  
 `Get-CimInstance Win32_Process -Filter "name = 'MsMpEng.exe'" | Invoke-CimMethod -MethodName`
 
 ## Step4 regsvr32
