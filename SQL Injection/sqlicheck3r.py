@@ -2,7 +2,7 @@
 import requests
 import re
 
-def is_valid(url):
+def is_url(url):
     url_pattern = r'^(http|https)://[\w/:%#\$&\?\(\)~\.=\+\-]+$'
     return re.match(url_pattern, url)
 
@@ -42,9 +42,9 @@ def main(user_input):
 if __name__ == "__main__":
     try:
         while True:
-            user_input = input("[*] Input URL: ")
-            if is_valid(user_input):
-                main(user_input)
+            url = input("[*] Input URL: ")
+            if is_url(url):
+                main(url)
                 break 
             else:
                 print("[!] Invalid URL. Make sure it has http(s) and parameters.")
