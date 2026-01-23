@@ -2,3 +2,4 @@ pwn_env/
 AMSI Bypass/step*.exe
 *.o
 *.out
+ETW Patching/step*.exe
