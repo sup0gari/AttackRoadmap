@@ -1,5 +1,5 @@
 # NoSQL Injectionとは
-NoSQLデータベースを利用したWebアプリケーションにおける脆弱性
+NoSQLデータベースを利用したWebアプリケーションにおける脆弱性。
 
 ## nosqlicheck3r.py
 指定したログインページに対して、NoSQL Injectionの脆弱性があるかチェックする。  
