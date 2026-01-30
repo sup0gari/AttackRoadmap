@@ -45,7 +45,7 @@ int main() {
     }
 
     uintptr_t target_api_address = target_ntdll_address + offset;
-    printf("[+] EtwEventWrite address: 0x%p\n", (void*)target_api_address);
+    printf("[+] EtwEventWriteTransfer address: 0x%p\n", (void*)target_api_address);
 
     // ret 14h
     // unsigned char patch[] = {0xC2, 0x14, 0x00};
