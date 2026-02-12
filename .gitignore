@@ -3,3 +3,5 @@ AMSI Bypass/step*.exe
 *.o
 *.out
 ETW Patching/step*.exe
+Buffer Overflow/Windows/step*.exe
+Buffer Overflow/Linux/step*
