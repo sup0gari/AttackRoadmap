@@ -1,0 +1,14 @@
+pwn_env/
+AMSI Bypass/step*.exe
+*.o
+*.out
+ETW Patching/step*.exe
+Buffer Overflow/Windows/step*.exe
+Buffer Overflow/Linux/step*
+Malware/info_stealer/*.exe
+Malware/info_stealer/sqlite3.c
+Malware/info_stealer/sqlite3.h
+Malware/ransom_ware/*.exe
+Malware/ransom_ware/*.obj
+Malware/dropper/*.obj
+Malware/dropper/*.exe
