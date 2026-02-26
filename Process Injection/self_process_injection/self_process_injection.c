@@ -16,7 +16,7 @@ BYTE* read_file(HANDLE data_handle, DWORD* data_size) {
     return buffer;
 }
 
-void execute(BYTE* data) {
+void relocate(BYTE* data) {
     // Check magic number
     PIMAGE_DOS_HEADER dos = (PIMAGE_DOS_HEADER)data;
     if (dos->e_magic != IMAGE_DOS_SIGNATURE) return;
@@ -46,7 +46,7 @@ int main() {
     CloseHandle(handle);
 
     if (exe && exe_size > 0) {
-        execute(exe);
+        relocate(exe);
         HeapFree(GetProcessHeap(), 0, exe);
     }
 
