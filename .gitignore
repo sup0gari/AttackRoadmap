@@ -12,3 +12,5 @@ Malware/ransom_ware/*.exe
 Malware/ransom_ware/*.obj
 Malware/dropper/*.obj
 Malware/dropper/*.exe
+Process Injection/*/*.exe
+Process Injection/*/*.obj
