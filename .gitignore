@@ -14,3 +14,12 @@ Malware/dropper/*.obj
 Malware/dropper/*.exe
 Process Injection/*/*.exe
 Process Injection/*/*.obj
+Rootkit/Step*/*.sys
+Rootkit/Step*/*.obj
+Rootkit/Step*/*.lib
+Rootkit/Step*/*.exp
+Rootkit/Step*/*.inf
+Rootkit/Step*/*.log
+Rootkit/Step*/*.pdb
+Rootkit/Step*/*.exe
+Rootkit/Step*/*.ilk
