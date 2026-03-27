@@ -11,7 +11,7 @@ reg add "HKLM\SYSTEM\CurrentControlSet\Services\MyRootkit" /v Start /t REG_DWORD
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\MyRootkit" /v Group /t REG_UTF8 /d "FSFilter Activity Monitor" /f
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\MyRootkit" /v Tag /t REG_DWORD /d 1 /f
 # sc.exe start MyRootkit
-sc.exe sdset MyRootkit D:(A;;CCLCSWRPWPDTLOCRRC;;;SY)(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;BA)
+sc.exe sdset MyRootkit 'D:(A;;CCLCSWRPWPDTLOCRRC;;;SY)(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;BA)'
 ```
 
 ### Step1
@@ -27,6 +27,22 @@ cl /c /Zi /nologo /W3 /WX- /Od /Oi /D _AMD64_ /D _KERNEL_MODE /I "C:\Program Fil
 link /NODEFAULTLIB /INCREMENTAL:NO /SUBSYSTEM:NATIVE /DRIVER /ENTRY:DriverEntry /OUT:Step3.sys main.obj "C:\Program Files (x86)\Windows Kits\10\Lib\10.0.26100.0\km\x64\ntoskrnl.lib"
 ```
 3. 動作確認
+```powershell
+tasklist | findstr count
+Get-Process count
+Get-Process -id <PID>
+```
+
+### Step2
+Step1では実行中のプロセスを探して隠蔽するだけであり、`count.exe`を再起動すると隠蔽できない。  
+何度再起動しても隠蔽できるようにするために`PsSetCreateProcessNotifyRoutine`というカーネルコールバックによる実装を行う。
+
+1. カーネルドライバーのビルド
+```powershell
+cl /c /Zi /nologo /W3 /WX- /Od /Oi /D _AMD64_ /D _KERNEL_MODE /I "C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\km" main.c
+link /NODEFAULTLIB /INCREMENTAL:NO /SUBSYSTEM:NATIVE /DRIVER /ENTRY:DriverEntry /OUT:Step2.sys main.obj "C:\Program Files (x86)\Windows Kits\10\Lib\10.0.26100.0\km\x64\ntoskrnl.lib"
+```
+2. 動作確認
 ```powershell
 tasklist | findstr count
 Get-Process count
